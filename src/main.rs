@@ -34,6 +34,27 @@ fn candidates(filename: &String, searching: &String) -> Vec<String> {
     return result;
 }
 
+fn sort(word: &String) -> Vec<char> {
+    let mut result: Vec<char> = word.chars().collect();
+    result.sort();
+
+    return result;
+}
+
+fn find_anagrams(searching: &String, to_examined: &Vec<String>){
+    let searching_order = sort(&searching);
+    for part1 in to_examined {
+        for part2 in to_examined {
+            let mut current = part1.clone();
+            current.push_str(&part2);
+            let order = sort(&current);
+            if order == searching_order{
+                println!("{} = {} + {}", searching, part1, part2);
+            }
+        }
+    }
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
 
@@ -45,4 +66,5 @@ fn main() {
     let to_examined = candidates(&dict, &searching);
     println!("{} candidates", to_examined.len());
 
+    find_anagrams(&searching, &to_examined);
 }
