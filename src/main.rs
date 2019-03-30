@@ -50,9 +50,10 @@ fn find_anagrams(searching: &String, to_examined: &Vec<String>){
         for index2 in index1 + 1..to_examined.len() {
             let part2 = &to_examined[index2];
 
-            let mut current = part1.clone();
-            current.push_str(&part2);
             if part1.len() + part2.len() == searching_len {
+                let mut current = part1.clone();
+                current.push_str(&part2);
+
                 let order = sort(&current);
                 if order == searching_order{
                     println!("{} = {} + {}", searching, part1, part2);
