@@ -43,13 +43,17 @@ fn sort(word: &String) -> Vec<char> {
 
 fn find_anagrams(searching: &String, to_examined: &Vec<String>){
     let searching_order = sort(&searching);
+    let searching_len = searching.len();
+
     for part1 in to_examined {
         for part2 in to_examined {
             let mut current = part1.clone();
             current.push_str(&part2);
-            let order = sort(&current);
-            if order == searching_order{
-                println!("{} = {} + {}", searching, part1, part2);
+            if part1.len() + part2.len() == searching_len {
+                let order = sort(&current);
+                if order == searching_order{
+                    println!("{} = {} + {}", searching, part1, part2);
+                }
             }
         }
     }
