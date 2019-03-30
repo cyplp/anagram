@@ -45,8 +45,11 @@ fn find_anagrams(searching: &String, to_examined: &Vec<String>){
     let searching_order = sort(&searching);
     let searching_len = searching.len();
 
-    for part1 in to_examined {
-        for part2 in to_examined {
+    for index1 in 0..to_examined.len(){
+        let part1 = &to_examined[index1];
+        for index2 in index1 + 1..to_examined.len() {
+            let part2 = &to_examined[index2];
+
             let mut current = part1.clone();
             current.push_str(&part2);
             if part1.len() + part2.len() == searching_len {
