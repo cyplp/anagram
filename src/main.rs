@@ -21,7 +21,7 @@ impl StringExt for String{
         result.sort();
 
         return result;
-}
+    }
 
 }
 
