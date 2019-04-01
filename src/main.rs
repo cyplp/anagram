@@ -4,20 +4,37 @@ use std::vec::Vec;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-fn signature(word: &String) -> HashSet<char> {
-    let mut sig = HashSet::new();
-    let char_vec: Vec<char> = word.chars().collect();
-    for current in  char_vec {
-        sig.insert(current);
+
+pub trait StringExt {
+    fn signature(&self) -> HashSet<char> ;
+    fn sorted(&self) -> Vec<char>;
+}
+
+impl StringExt for String{
+
+    fn signature(&self) -> HashSet<char> {
+        let mut sig = HashSet::new();
+        let char_vec: Vec<char> = self.chars().collect();
+        for current in  char_vec {
+            sig.insert(current);
+        }
+
+        return sig;
     }
 
-    return sig;
+    fn sorted(&self) -> Vec<char> {
+        let mut result: Vec<char> = self.chars().collect();
+        result.sort();
+
+        return result;
+}
+
 }
 
 fn candidates(filename: &String, searching: &String) -> Vec<String> {
     let mut result = Vec::<String>::new();
 
-    let sig = signature(&searching);
+    let sig = &searching.signature();
     let search_lenght = searching.len();
     println!("signature : {:?} ; lenght : {}", sig, search_lenght);
 
@@ -25,7 +42,7 @@ fn candidates(filename: &String, searching: &String) -> Vec<String> {
     for line in BufReader::new(file.unwrap()).lines() {
         let current = line.unwrap();
         if current.len() < search_lenght{
-            let current_sig = signature(&current);
+            let current_sig = &current.signature();
             if current_sig.is_subset(&sig) {
                 result.push(current);
             }
@@ -34,15 +51,9 @@ fn candidates(filename: &String, searching: &String) -> Vec<String> {
     return result;
 }
 
-fn sort(word: &String) -> Vec<char> {
-    let mut result: Vec<char> = word.chars().collect();
-    result.sort();
-
-    return result;
-}
 
 fn find_anagrams(searching: &String, to_examined: &Vec<String>){
-    let searching_order = sort(&searching);
+    let searching_order = &searching.sorted();
     let searching_len = searching.len();
 
     for index1 in 0..to_examined.len(){
@@ -54,7 +65,7 @@ fn find_anagrams(searching: &String, to_examined: &Vec<String>){
                 let mut current = part1.clone();
                 current.push_str(&part2);
 
-                let order = sort(&current);
+                let order = &current.sorted();
                 if order == searching_order{
                     println!("{} = {} + {}", searching, part1, part2);
                 }
