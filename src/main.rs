@@ -20,7 +20,7 @@ impl StringExt for String{
         let mut result: Vec<char> = self.chars().collect();
         result.sort();
 
-        return result;
+        result
     }
 
 }
@@ -42,7 +42,7 @@ fn candidates(filename: &String, searching: &String) -> Vec<String> {
             }
         }
     }
-    return result;
+    result
 }
 
 
