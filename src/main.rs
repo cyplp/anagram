@@ -13,13 +13,7 @@ pub trait StringExt {
 impl StringExt for String{
 
     fn signature(&self) -> HashSet<char> {
-        let mut sig = HashSet::new();
-        let char_vec: Vec<char> = self.chars().collect();
-        for current in  char_vec {
-            sig.insert(current);
-        }
-
-        return sig;
+        self.chars().collect()
     }
 
     fn sorted(&self) -> Vec<char> {
