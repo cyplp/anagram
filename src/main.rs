@@ -25,7 +25,7 @@ impl StringExt for String{
 
 }
 
-fn candidates(filename: &String, searching: &String) -> Vec<String> {
+fn candidates(filename: &str, searching: &String) -> Vec<String> {
     let mut result = Vec::<String>::new();
 
     let sig = &searching.signature();
